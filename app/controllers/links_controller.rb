@@ -1,6 +1,7 @@
 class LinksController < ApplicationController
   def index
     @link = Link.new
+    @links = Link.all
   end
 
   def create
@@ -9,19 +10,17 @@ class LinksController < ApplicationController
     @link.in_url = "https://#{@link.in_url}" unless @link.in_url.include?("https://") || @link.in_url.include?("http://")
 
     @link.short_link = random_id
-    if  @link.save
-      redirect_to @link
+    if @link.save
+      redirect_to root_path
     end
   end
 
   def show
-    @link = Link.find(params[:id])
-  end
-
-  def redirect_to_link
     link = Link.find_by_short_link(params[:id])
     redirect_to link.in_url
   end
+
+
 
   private
   def link_params

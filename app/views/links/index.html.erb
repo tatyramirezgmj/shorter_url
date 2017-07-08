@@ -1,2 +1,6 @@
 <h1>Please input your URL here</h1>
 <%= render 'form' %>
+<% @links.each do |link| %>
+<%= link_to link_url(link.short_link), link_url(link.short_link) %>
+<br>
+<% end %>
